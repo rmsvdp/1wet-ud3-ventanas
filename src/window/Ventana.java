@@ -1,11 +1,10 @@
 package window;
 
-
 public class Ventana {
 
 	private final int maxres_alto = 25;
 	private final int maxres_ancho = 80;
-	private final char fill_char = '*';
+	private final char fill_char = '#';
 	String titulo;
 	private int alto;
 	private int ancho;
@@ -16,13 +15,13 @@ public class Ventana {
 	public Ventana() {
 		// TODO Auto-generated constructor stub
 	}
-
 	public Ventana(String titulo, int alto, int ancho, int posx, int posy) {
 
-		int tam = titulo.length();
+		//int tam = titulo.length();
 		this.alto = alto;
 		this.ancho = ancho;
 		this.titulo = titulo;
+		/*
 		if (tam>this.ancho) {
 			this.titulo = this.titulo.substring(0,this.ancho-1);
 		} else {
@@ -30,7 +29,7 @@ public class Ventana {
 				this.titulo = this.titulo + "-";
 			}
 		}
-
+*/
 		this.posx = posx;
 		this.posy = posy;
 		this.texto = new char[this.alto][this.ancho];
@@ -56,58 +55,56 @@ public class Ventana {
 	public int getAncho() {
 		return ancho;
 	}
-
 	public void setAncho(int ancho) {
 		this.ancho = ancho;
 	}
-
 	public int getPosx() {
 		return posx;
 	}
-
 	public void setPosx(int posx) {
 		this.posx = posx;
 	}
-
 	public int getPosy() {
 		return posy;
 	}
-
 	public void setPosy(int posy) {
 		this.posy = posy;
 	}
-
 	public char[][] getTexto() {
 		return texto;
 	}
-
-	public void setTexto(char[][] texto) {
+    public void setTexto(char[][] texto) {
 		this.texto = texto;
-	
 	}
-	
-	
 	/*
 	 * Métodos propios de una ventana
 	 * 
 	 */
-	public void resize(int alto, int ancho) {
+	public void resize(int _alto, int _ancho) {
 		// TODO implementar método
+		this.texto = new char[_alto][_ancho];
+		this.alto = _alto;
+		this.ancho= _ancho;
+		this.limpiarTexto();
+		this.show();
+		
 	}
-	public void maximize(int alto, int ancho) {
+	public void maximize() {
 		// TODO implementar método
+		resize(this.maxres_alto,this.maxres_ancho);
 	}
 	public void minimize(int alto, int ancho) {
 		// TODO implementar método
 	}
+	
+	
 	public void move(int alto, int ancho) {
 		// TODO implementar método
 	}
-	
+	/**
+	 * Muestra la ventana en la consola
+	 */
 	public void show() {
-		
-
-			
 		
 		System.out.println(this.titulo);
 		for(int fi=0;fi<this.alto;fi++) {
@@ -117,7 +114,9 @@ public class Ventana {
 			System.out.println();
 		} // end fi
 	}
-	
+	/**
+	 * 
+	 */
 	public void hide() {
 		// TODO implementar método
 		for(int fi=0;fi<this.maxres_alto;fi++) {
@@ -125,6 +124,9 @@ public class Ventana {
 		}
 	}
 	
+	/**
+	 * refresca el contenido de la ventana
+	 */
 	public void refresh() {
 		// TODO implementar método
 		printTexto(this.texto.toString());
@@ -133,9 +135,10 @@ public class Ventana {
 	
 	/**
 	 * Limpia el área de texto de la ventana, 
-	 * rellenando con espacios
+	 * rellenando con un determinado caracter
 	 */
 	private void limpiarTexto() {
+		
 		for(int fi=0;fi<this.alto;fi++) {
 			for (int co=0;co<this.ancho;co++) {
 				this.texto[fi][co] = this.fill_char;
@@ -161,7 +164,7 @@ public class Ventana {
 			
 			fi = cursor / this.ancho;
 			co = cursor % this.ancho;
-			System.out.println("Cur ["+ text.charAt(cursor) +"]: "+ cursor + " fi: "+fi +" co: "+co);
+//System.out.println("Cur ["+ text.charAt(cursor) +"]: "+ cursor + " fi: "+fi +" co: "+co);
 			this.texto[fi][co] = text.charAt(cursor);
 			
 		}//end buffer
